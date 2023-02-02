@@ -1,54 +1,45 @@
 "use strict";
-const hamburger = 3;
-const fries = 3;
-const cola = 0;
-const nuggets = 2;
 
-if (hamburger === 3 && cola === 2 || fries === 3 && nuggets) {
-    console.log('все сыты');
-} else {
-    console.log('мы уходим');
+let num = 50;
+
+/* while (num <= 55) {
+    console.log(num);
+    num++
+} */
+
+do {
+    console.log(num);
+    num++
+}
+while (num < 55);
+
+for (let i = 1; i < 12; i++) {
+    if (i === 7) {
+        break;
+    }
+    console.log(i);
 }
 
+let result = '';
+const leght = 7;
 
+for (let i = 1; i < leght; i++) {
 
-console.log(NaN || 2 || undefined);
-console.log(NaN && 2 && undefined);
-
-
-console.log(1 && 2 && 3);
-
-
-console.log(!1 && 2 || !3);
-
-
-console.log(25 || null && !3);
-
-
-console.log(NaN || null || !3 || undefined || 5);
-
-
-console.log(NaN || null && !3 && undefined || 5);
-
-
-console.log(5 === 5 && 3 > 1 || 5);
-
-let hamburger;
-const fries = NaN;
-const cola = 0;
-const nuggets = 2;
-
-
-if (hamburger || cola || fries === 3 || nuggets) {
-    console.log('Done!')
+    for (let j = 0; j < i; j++) {
+        result += "*";
+    }
+    result += '\n';
 }
-
-let hamburger;
-const fries = NaN;
-const cola = 0;
-const nuggets = 2;
+console.log(result);
 
 
-if (hamburger && cola || fries === 3 && nuggets) {
-    console.log('Done!')
+first: for (let i = 0; i < 3; i++) {
+    console.log(`First level: ${i}`);
+    for (let j = 0; j < 3; j++) {
+        console.log(`Second level: ${j}`);
+        for (let k = 0; k < 3; k++) {
+            if (k === 2) continue first;
+            console.log(`Third level: ${k}`);
+        }
+    }
 }
