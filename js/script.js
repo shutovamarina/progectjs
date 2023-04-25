@@ -1,101 +1,70 @@
-"use strict";
+'use strict';
 
-// Место для первой задачи
-function firstTask() {
-    for (let i = 5; i < 11; i++) {
-        console.log(i);
+
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
     }
 }
 
-// Место для второй задачи
-function secondTask() {
-    for (let i = 20; i > 9; i--) {
-        if (i === 13) break;
-        console.log(i);
-    }
+start();
+
+const personalMovieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
 
 
-}
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов?', ''),
+            b = prompt('На сколько оцените его?', '');
 
-// Место для третьей задачи
-function thirdTask() {
-    for (let i = 2; i < 11; i++) {
-        if (i % 2 == 0)
-            console.log(i);
-    }
-
-
-}
-
-// Место для четвертой задачи
-
-// Цикл, который нужно переписать:
-
-for (let i = 2; i <= 16; i++) {
-    if (i % 2 === 0) {
-        continue;
-    } else {
-        console.log(i);
-    }
-}
-
-let i = 2;
-
-while (i <= 16) {
-    if (i % 2 === 0) {
-        i++;
-        continue;
-    } else {
-        console.log(i);
-    }
-    i++;
-}
-
-
-
-function fourthTask() {
-    let i = 2;
-
-    while (i <= 16) {
-        if (i % 2 === 0) {
-            i++;
-            continue;
+        if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+            personalMovieDB.movies[a] = b;
+            console.log('done');
         } else {
-            console.log(i);
+            console.log('error');
+            i--;
         }
-        i++;
     }
+};
 
 
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count >= 30) {
+        console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
 }
 
-// Место для пятой задачи
+detectPersonalLevel();
 
-function fifthTask() {
-    const arrayOfNumbers = [];
+function showMyDB(hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
 
-    for (let i = 5; i < 11; i++) {
-        arrayOfNumbers[i - 5] = i;
     }
+}
+showMyDB(personalMovieDB.privat);
 
-    console.log(arrayOfNumbers);
-
-
-    // Не трогаем
-    return arrayOfNumbers;
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+    }
 }
 
-const lines = 5;
-let result = '';
-
-for (let i = 0; i <= lines; i++) {
-    for (let j = 0; j < lines - i; j++) {
-        result += " ";
-    }
-    for (let j = 0; j < 2 * i + 1; j++) {
-        result += "*";
-    }
-    result += "\n";
-}
-
-console.log(result)
+writeYourGenres();
