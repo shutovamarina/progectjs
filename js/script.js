@@ -1,105 +1,78 @@
 'use strict';
 
-
-let numberOfFilms;
-
-function start() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-
+function getTimeFromMinutes(minutesTotal) {
+    if (typeof(minutesTotal) !== 'number' || minutesTotal < 0 || !Number.isInteger(minutesTotal)) {
+        return "Ошибка, проверьте данные";
     }
+
+    const hours = Math.floor(minutesTotal / 60);
+    const minutes = minutesTotal % 60;
+
+    let hoursStr = '';
+
+    switch (hours) {
+        case 0:
+            hoursStr = 'часов';
+            break;
+        case 1:
+            hoursStr = 'час';
+            break;
+        case 2:
+        case 3:
+        case 4:
+            hoursStr = 'часа';
+            break;
+        default:
+            hoursStr = 'часов';
+    }
+
+    return `Это ${hours} ${hoursStr} и ${minutes} минут`;
 }
 
-start();
+getTimeFromMinutes(170)
+console.log(getTimeFromMinutes(170));
 
-const personalMovieDB = {
-    count: numberOfFilms,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false
-};
-
-
-function rememberMyFilms() {
-    for (let i = 0; i < 2; i++) {
-        const a = prompt('Один из последних просмотренных фильмов?', ''),
-            b = prompt('На сколько оцените его?', '');
-
-        if (a != null && b != null && a != '' && b != '' && a.length < 50) {
-            personalMovieDB.movies[a] = b;
-            console.log('done');
-        } else {
-            console.log('error');
-            i--;
-        }
-    }
-};
-
-
-function detectPersonalLevel() {
-    if (personalMovieDB.count < 10) {
-        console.log("Просмотрено довольно мало фильмов");
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
-        console.log("Вы классический зритель");
-    } else if (personalMovieDB.count >= 30) {
-        console.log("Вы киноман");
+function findMaxNumber(a, b, c, d) {
+    // Самое простое - это использовать Math.max :)
+    // А оптимизировать такую проверку мы научимся совсем скоро
+    if (typeof(a) !== 'number' ||
+        typeof(b) !== 'number' ||
+        typeof(c) !== 'number' ||
+        typeof(d) !== 'number') {
+        return 0;
     } else {
-        console.log("Произошла ошибка");
+        return Math.max(a, b, c, d);
     }
 }
 
-detectPersonalLevel();
+findMaxNumber(1, 5, 6.6, 10.5);
+findMaxNumber(1, 5, '6', '10');
+console.log(findMaxNumber(1, 5, 6.6, 10.5));
 
-function showMyDB(hidden) {
-    if (!hidden) {
-        console.log(personalMovieDB);
-
-    }
-}
-showMyDB(personalMovieDB.privat);
-
-function writeYourGenres() {
-    for (let i = 1; i <= 3; i++) {
-        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
-    }
-}
-
-writeYourGenres();
-
-function calculateVolumeAndArea(length) {
-    if (typeof(length) !== 'number' || length < 0 || !Number.isInteger(length)) {
-        return "При вычислении произошла ошибка";
+function fib(num) {
+    if (typeof(num) !== 'number' || num <= 0 || !Number.isInteger(num)) {
+        return "";
     }
 
-    let volume = 0,
-        area = 0;
+    let result = '';
+    let first = 2;
+    let second = 4;
 
-    volume = length * length * length;
-    // length ** 3 - это тоже самое, что и выше или варианты через цикл.
-    // ** - это оператор степени, напоминаю. Но онлайн редактор его не принимает =/
-    area = 6 * (length * length);
+    for (let i = 0; i < num; i++) {
+        if (i + 1 === num) {
+            result += `${first}`;
+            // Без пробела в конце
+        } else {
+            result += `${first} `;
+        }
 
-    return `Объем куба: ${volume}, площадь всей поверхности: ${area}`;
+        let third = first + second;
+        first = second;
+        second = third;
+    }
+
+    return result;
 }
 
-calculateVolumeAndArea(5);
-console.log(calculateVolumeAndArea(5));
-
-function getCoupeNumber(seatNumber) {
-    if (typeof(seatNumber) !== 'number' || seatNumber < 0 || !Number.isInteger(seatNumber)) {
-        return "Ошибка. Проверьте правильность введенного номера места";
-    }
-
-    if (seatNumber === 0 || seatNumber > 36) {
-        return "Таких мест в вагоне не существует";
-    }
-
-    return Math.ceil(seatNumber / 4);
-    // тут очень много вариантов решения, но выбрал один из элегантных :)
-}
-
-getCoupeNumber(33);
-console.log(getCoupeNumber(33));
+fib(5);
+console.log(fib(5));
