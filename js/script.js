@@ -1,78 +1,70 @@
 'use strict';
 
-function getTimeFromMinutes(minutesTotal) {
-    if (typeof(minutesTotal) !== 'number' || minutesTotal < 0 || !Number.isInteger(minutesTotal)) {
-        return "Ошибка, проверьте данные";
-    }
 
-    const hours = Math.floor(minutesTotal / 60);
-    const minutes = minutesTotal % 60;
+let numberOfFilms;
 
-    let hoursStr = '';
+function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
-    switch (hours) {
-        case 0:
-            hoursStr = 'часов';
-            break;
-        case 1:
-            hoursStr = 'час';
-            break;
-        case 2:
-        case 3:
-        case 4:
-            hoursStr = 'часа';
-            break;
-        default:
-            hoursStr = 'часов';
-    }
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
-    return `Это ${hours} ${hoursStr} и ${minutes} минут`;
-}
-
-getTimeFromMinutes(170)
-console.log(getTimeFromMinutes(170));
-
-function findMaxNumber(a, b, c, d) {
-    // Самое простое - это использовать Math.max :)
-    // А оптимизировать такую проверку мы научимся совсем скоро
-    if (typeof(a) !== 'number' ||
-        typeof(b) !== 'number' ||
-        typeof(c) !== 'number' ||
-        typeof(d) !== 'number') {
-        return 0;
-    } else {
-        return Math.max(a, b, c, d);
     }
 }
 
-findMaxNumber(1, 5, 6.6, 10.5);
-findMaxNumber(1, 5, '6', '10');
-console.log(findMaxNumber(1, 5, 6.6, 10.5));
+start();
 
-function fib(num) {
-    if (typeof(num) !== 'number' || num <= 0 || !Number.isInteger(num)) {
-        return "";
-    }
+const personalMovieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
 
-    let result = '';
-    let first = 2;
-    let second = 4;
 
-    for (let i = 0; i < num; i++) {
-        if (i + 1 === num) {
-            result += `${first}`;
-            // Без пробела в конце
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов?', '').trim(),
+            b = prompt('На сколько оцените его?', '');
+
+        if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+            personalMovieDB.movies[a] = b;
+            console.log('done');
         } else {
-            result += `${first} `;
+            console.log('error');
+            i--;
         }
-
-        let third = first + second;
-        first = second;
-        second = third;
     }
+};
 
-    return result;
+
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count >= 30) {
+        console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
 }
 
-fib(5);
-console.log(fib(5));
+detectPersonalLevel();
+
+function showMyDB(hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
+
+    }
+}
+showMyDB(personalMovieDB.privat);
+
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+    }
+}
+
+writeYourGenres();
