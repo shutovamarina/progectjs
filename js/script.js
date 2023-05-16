@@ -1,32 +1,23 @@
 'use strict';
+const number = {
+    a: 2,
+    b: 5,
+    c: {
+        x: 7,
+        y: 4
+    }
+};
+const newNumbers = copy(numbers);
 
-const arr = [1, 26, 13, 6, 18];
-arr.sort(compareNum);
-console.log(arr);
+newNumbers.a = 10;
+newNumbers.c.x = 10;
 
-function compareNum(a, b) {
-    return a - b;
-}
-/* arr[99] = 0;
-console.log(arr.length);
-console.log(arr);
- */
-/* arr.forEach(function(item, i, arr) {
-    console.log(`${i}: ${item} внутри массива`)
-}) */
-/* 
-arr.pop();
+console.log(newNumbers);
+console.log(numbers);
 
-console.log(arr); */
-/* for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i]);
-} */
+const add = {
+    d: 17,
+    e: 20
+};
 
-/* for (let value of arr) {
-    console.log(value);
-} */
-
-/* const str = prompt("", "");
-const products = str.split(",");
-products.sort();
-console.log(products.join('; ')); */
+console.log(object.assign(numbers))
