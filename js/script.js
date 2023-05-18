@@ -1,4 +1,20 @@
 'use strict';
+function copy(mainObj) {
+    let objCopy = {};
+
+    let key;
+    for (key in mainObj) {
+        objCopy[key] = mainObj[key];
+    }
+
+    return objCopy;
+}
+
+/* const obj = {
+    a: 5,
+    b: 1
+}; */
+
 const number = {
     a: 2,
     b: 5,
@@ -20,4 +36,4 @@ const add = {
     e: 20
 };
 
-console.log(object.assign(numbers))
+console.log(object.assign(numbers));
